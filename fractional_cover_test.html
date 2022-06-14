@@ -215,10 +215,12 @@
                 }).addTo(mapNFS);
 
                 mapCog.on('moveend', function(e) {
-                    setTimeout(function(){mapNFS.fitBounds(mapCog.getBounds())},500)})
-           
+                    mapNFS.fitBounds(mapCog.getBounds())
+                });
                 mapNFS.on('moveend', function(e) {
-                    setTimeout(function(){mapCog.fitBounds(mapNFS.getBounds())},500)})  
+                    mapCog.fitBounds(mapNFS.getBounds())
+                });
+            }
 
             function renderMaps(){
 
