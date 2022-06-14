@@ -1,0 +1,265 @@
+<html>
+    <head>
+        <style>
+            .tableCell{
+                padding:4px;
+                background-color: lightgrey;
+            }
+            #mapCog{
+                width:100%;
+                height:100%;
+                background-color: grey;
+            }
+            #mapNFS{
+                width:100%;
+                height:100%;
+                background-color: grey;
+            }
+
+
+        </style>
+                <!-- Load Leaflet from CDN -->
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+                integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+                crossorigin=""/>
+              <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+                integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+                crossorigin=""></script>
+            
+              <!-- Load Esri Leaflet from CDN -->
+              <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
+                integrity="sha512-E0DKVahIg0p1UHR2Kf9NX7x7TUewJb30mxkxEm2qOYTVJObgsAGpEol9F6iK6oefCbkJiA4/i6fnTHzM6H1kEA=="
+                crossorigin=""></script>
+            
+              <!-- Load Esri Leaflet Vector from CDN -->
+              <script src="https://unpkg.com/esri-leaflet-vector@3.1.3/dist/esri-leaflet-vector.js"
+                integrity="sha512-2sbebld2cAnzUw4nloopGcKE7AGl7xUlCXg8amUWS47veGTKMH6tx1VsT7U9ukwXPAVzecigXK0jMtS5UcllDg=="
+                crossorigin=""></script>
+            
+    </head>
+    <body style="font-family:Arial, Helvetica, sans-serif;font-size:11px;padding:10px">
+        <table style="width:100%;height:100%" cellspacing="0" cellpadding="0">
+            <tr>
+                <td colspan="2">
+                    <select onchange="renderMaps()" id="ddlDate" style="font-size:11pt;margin-bottom:7px">
+                        <option value="1990-03-01">1990 March</option>
+                        <option value="1990-06-01">1990 June</option>
+                        <option value="1990-09-01">1990 September</option>
+                        <option value="1990-12-01">1990 December </option>
+                        <option value="1991-03-01">1991 March</option>
+                        <option value="1991-06-01">1991 June</option>
+                        <option value="1991-09-01">1991 September</option>
+                        <option value="1991-12-01">1991 December </option>
+                        <option value="1992-03-01">1992 March</option>
+                        <option value="1992-06-01">1992 June</option>
+                        <option value="1992-09-01">1992 September</option>
+                        <option value="1992-12-01">1992 December </option>
+                        <option value="1993-03-01">1993 March</option>
+                        <option value="1993-06-01">1993 June</option>
+                        <option value="1993-09-01">1993 September</option>
+                        <option value="1993-12-01">1993 December </option>
+                        <option value="1994-03-01">1994 March</option>
+                        <option value="1994-06-01">1994 June</option>
+                        <option value="1994-09-01">1994 September</option>
+                        <option value="1994-12-01">1994 December </option>
+                        <option value="1995-03-01">1995 March</option>
+                        <option value="1995-06-01">1995 June</option>
+                        <option value="1995-09-01">1995 September</option>
+                        <option value="1995-12-01">1995 December </option>
+                        <option value="1996-03-01">1996 March</option>
+                        <option value="1996-06-01">1996 June</option>
+                        <option value="1996-09-01">1996 September</option>
+                        <option value="1996-12-01">1996 December </option>
+                        <option value="1997-03-01">1997 March</option>
+                        <option value="1997-06-01">1997 June</option>
+                        <option value="1997-09-01">1997 September</option>
+                        <option value="1997-12-01">1997 December </option>
+                        <option value="1998-03-01">1998 March</option>
+                        <option value="1998-06-01">1998 June</option>
+                        <option value="1998-09-01">1998 September</option>
+                        <option value="1998-12-01">1998 December </option>
+                        <option value="1999-03-01">1999 March</option>
+                        <option value="1999-06-01">1999 June</option>
+                        <option value="1999-09-01">1999 September</option>
+                        <option value="1999-12-01">1999 December </option>
+                        <option value="2000-03-01">2000 March</option>
+                        <option value="2000-06-01">2000 June</option>
+                        <option value="2000-09-01">2000 September</option>
+                        <option value="2000-12-01">2000 December </option>
+                        <option value="2001-03-01">2001 March</option>
+                        <option value="2001-06-01">2001 June</option>
+                        <option value="2001-09-01">2001 September</option>
+                        <option value="2001-12-01">2001 December </option>
+                        <option value="2002-03-01">2002 March</option>
+                        <option value="2002-06-01">2002 June</option>
+                        <option value="2002-09-01">2002 September</option>
+                        <option value="2002-12-01">2002 December </option>
+                        <option value="2003-03-01">2003 March</option>
+                        <option value="2003-06-01">2003 June</option>
+                        <option value="2003-09-01">2003 September</option>
+                        <option value="2003-12-01">2003 December </option>
+                        <option value="2004-03-01">2004 March</option>
+                        <option value="2004-06-01">2004 June</option>
+                        <option value="2004-09-01">2004 September</option>
+                        <option value="2004-12-01">2004 December </option>
+                        <option value="2005-03-01">2005 March</option>
+                        <option value="2005-06-01">2005 June</option>
+                        <option value="2005-09-01">2005 September</option>
+                        <option value="2005-12-01">2005 December </option>
+                        <option value="2006-03-01">2006 March</option>
+                        <option value="2006-06-01">2006 June</option>
+                        <option value="2006-09-01">2006 September</option>
+                        <option value="2006-12-01">2006 December </option>
+                        <option value="2007-03-01">2007 March</option>
+                        <option value="2007-06-01">2007 June</option>
+                        <option value="2007-09-01">2007 September</option>
+                        <option value="2007-12-01">2007 December </option>
+                        <option value="2008-03-01">2008 March</option>
+                        <option value="2008-06-01">2008 June</option>
+                        <option value="2008-09-01">2008 September</option>
+                        <option value="2008-12-01">2008 December </option>
+                        <option value="2009-03-01">2009 March</option>
+                        <option value="2009-06-01">2009 June</option>
+                        <option value="2009-09-01">2009 September</option>
+                        <option value="2009-12-01">2009 December </option>
+                        <option value="2010-03-01">2010 March</option>
+                        <option value="2010-06-01">2010 June</option>
+                        <option value="2010-09-01">2010 September</option>
+                        <option value="2010-12-01">2010 December </option>
+                        <option value="2011-03-01">2011 March</option>
+                        <option value="2011-06-01">2011 June</option>
+                        <option value="2011-09-01">2011 September</option>
+                        <option value="2011-12-01">2011 December </option>
+                        <option value="2012-03-01">2012 March</option>
+                        <option value="2012-06-01">2012 June</option>
+                        <option value="2012-09-01">2012 September</option>
+                        <option value="2012-12-01">2012 December </option>
+                        <option value="2013-03-01">2013 March</option>
+                        <option value="2013-06-01">2013 June</option>
+                        <option value="2013-09-01">2013 September</option>
+                        <option value="2013-12-01">2013 December </option>
+                        <option value="2014-03-01">2014 March</option>
+                        <option value="2014-06-01">2014 June</option>
+                        <option value="2014-09-01">2014 September</option>
+                        <option value="2014-12-01">2014 December </option>
+                        <option value="2015-03-01">2015 March</option>
+                        <option value="2015-06-01">2015 June</option>
+                        <option value="2015-09-01">2015 September</option>
+                        <option value="2015-12-01">2015 December </option>
+                        <option value="2016-03-01">2016 March</option>
+                        <option value="2016-06-01">2016 June</option>
+                        <option value="2016-09-01">2016 September</option>
+                        <option value="2016-12-01">2016 December </option>
+                        <option value="2017-03-01">2017 March</option>
+                        <option value="2017-06-01">2017 June</option>
+                        <option value="2017-09-01">2017 September</option>
+                        <option value="2017-12-01">2017 December </option>
+                        <option value="2018-03-01">2018 March</option>
+                        <option value="2018-06-01">2018 June</option>
+                        <option value="2018-09-01">2018 September</option>
+                        <option value="2018-12-01">2018 December </option>
+                        <option value="2019-03-01">2019 March</option>
+                        <option value="2019-06-01">2019 June</option>
+                        <option value="2019-09-01">2019 September</option>
+                        <option value="2019-12-01">2019 December </option>
+                        <option value="2020-03-01">2020 March</option>
+                        <option value="2020-06-01">2020 June</option>
+                        <option value="2020-09-01">2020 September</option>
+                        <option value="2020-12-01">2020 December </option>
+                        <option value="2021-03-01">2021 March</option>
+                        <option value="2021-06-01">2021 June</option>
+                        <option value="2021-09-01">2021 September</option>
+                        <option value="2021-12-01">2021 December </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tableCell" style="font-size:11pt;margin-right:4px;border-right:1px dashed gray;padding:10px">COG (Test)</td>
+        
+                <td class="tableCell" style="margin-left:4px;padding:10px">
+                    <span >
+                        <input type="radio" id="NFSTest" name="NFS" value="NFSTTest" onclick="renderMaps()"
+                               checked>
+                        <label style="font-size:11pt" for="NFSTest">NFS Test</label>
+                    </span>
+                      <span>
+                        <input type="radio" id="NFSProd" name="NFS" value="NFSProd" onclick="renderMaps()"">
+                        <label style="font-size:11pt" for="NFSProd">NFS Prod</label>
+                      </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="tableCell" style="width:47%;height:100%;border-right:1px dashed gray;padding:10px"><div id="mapCog"></div></td>
+                <td class="tableCell" style="width:47%;height:100%;padding:10px"><div id="mapNFS"></div></td>
+            </tr>
+        </table>
+
+        <script>
+
+            var wmsCOGLayer
+            var mapCog
+            var mapNFS
+
+            function initMaps(){
+
+                mapCog = L.map('mapCog').setView([-25.919032, 134.119588], 4);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 20,
+                    attribution: '© OpenStreetMap'
+                }).addTo(mapCog);
+
+                mapNFS = L.map('mapNFS').setView([-25.919032, 134.119588], 4);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 20,
+                    attribution: '© OpenStreetMap'
+                }).addTo(mapNFS);
+
+                mapCog.on('moveend', function(e) {
+                    mapNFS.fitBounds(mapCog.getBounds())
+                });
+                mapNFS.on('moveend', function(e) {
+                    mapCog.fitBounds(mapNFS.getBounds())
+                });
+            }
+
+            function renderMaps(){
+
+                nfsURL = ""
+                if (document.getElementById("NFSTest").checked){
+                   nfsURL="https://geoserver-test.tern.org.au/geoserver/aus/wms?"
+                }else{
+                   nfsURL="https://geoserver.tern.org.au/geoserver/aus/wms?"
+                }
+
+                var date = document.getElementById('ddlDate').value
+                //mapCog.removeLayer(wmsCogLayer)
+                if (typeof wmsCOGLayer === 'undefined') {
+                   
+                    // color is undefined
+                }
+                else{
+                   mapCog.removeLayer(wmsCOGLayer)
+                   mapNFS.removeLayer(wmsNFSLayer)
+                }
+
+                wmsCOGLayer = L.tileLayer.wms("https://geoserver-test.tern.org.au/geoserver/test/wms?", {
+                    layers: 'test:fractional_cover_cog',
+                    format: 'image/png',
+                    transparent: true,
+                    time: date
+                }).addTo(mapCog);
+
+                wmsNFSLayer = L.tileLayer.wms(nfsURL, {
+                    layers: 'aus:fractional_cover',
+                    format: 'image/png',
+                    transparent: true,
+                    time: date
+                }).addTo(mapNFS);
+
+            }
+
+            initMaps()
+            renderMaps()
+        </script>
+    </body>
+</html>
