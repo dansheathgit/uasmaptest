@@ -217,9 +217,7 @@
                 mapCog.on('moveend', function(e) {
                     mapNFS.fitBounds(mapCog.getBounds())
                 });
-                mapNFS.on('moveend', function(e) {
-                    mapCog.fitBounds(mapNFS.getBounds())
-                });
+    
             }
 
             function renderMaps(){
