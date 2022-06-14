@@ -211,7 +211,9 @@
                 mapNFS = L.map('mapNFS').setView([-25.919032, 134.119588], 4);
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 20,
-                    attribution: '© OpenStreetMap'
+                    attribution: '© OpenStreetMap',
+                    scrollWheelZoom: false,
+                    zoomControl: false
                 }).addTo(mapNFS);
 
                 mapCog.on('moveend', function(e) {
