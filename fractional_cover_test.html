@@ -15,8 +15,6 @@
                 height:100%;
                 background-color: grey;
             }
-
-
         </style>
                 <!-- Load Leaflet from CDN -->
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -174,8 +172,17 @@
                 </td>
             </tr>
             <tr>
-                <td class="tableCell" style="font-size:11pt;margin-right:4px;border-right:1px dashed gray;padding:10px">COG (Test)</td>
-        
+                <td class="tableCell" style="font-size:11pt;margin-right:4px;border-right:1px dashed gray;padding:10px">
+                    <span >
+                        <input type="radio" id="COGTest" name="COG" value="COGTTest" onclick="renderMaps()"
+                                checked>
+                        <label style="font-size:11pt" for="COGTest">COG Test</label>
+                    </span>
+                        <span>
+                        <input type="radio" id="COGProd" name="COG" value="COGProd" onclick="renderMaps()"">
+                        <label style="font-size:11pt" for="COGProd">COG Prod</label>
+                    </span>
+                </td>
                 <td class="tableCell" style="margin-left:4px;padding:10px">
                     <span >
                         <input type="radio" id="NFSTest" name="NFS" value="NFSTTest" onclick="renderMaps()"
@@ -203,23 +210,31 @@
             function initMaps(){
 
                 mapCog = L.map('mapCog').setView([-25.919032, 134.119588], 4);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 20,
+
+                
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 24,
                     attribution: '© OpenStreetMap'
                 }).addTo(mapCog);
 
-                mapNFS = L.map('mapNFS').setView([-25.919032, 134.119588], 4);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 20,
-                    attribution: '© OpenStreetMap',
-                    scrollWheelZoom: false,
-                    zoomControl: false
+
+                mapNFS = L.map('mapNFS', {
+                    center: [-25.919032, 134.119588],
+                    zoom: 4,
+                    showZoomControl:false,
+                    scrollWheelZoom:false
+                });
+
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 24,
+                    attribution: '© OpenStreetMap'
                 }).addTo(mapNFS);
 
                 mapCog.on('moveend', function(e) {
-                    mapNFS.fitBounds(mapCog.getBounds())
+                    mapNFS.fitBounds(mapCog.getBounds())                    
                 });
-    
+
             }
 
             function renderMaps(){
@@ -229,6 +244,13 @@
                    nfsURL="https://geoserver-test.tern.org.au/geoserver/aus/wms?"
                 }else{
                    nfsURL="https://geoserver.tern.org.au/geoserver/aus/wms?"
+                }
+
+                cogURL = ""
+                if (document.getElementById("COGTest").checked){
+                    cogURL="https://geoserver-test.tern.org.au/geoserver/test/wms?"
+                }else{
+                    cogURL="https://geoserver.tern.org.au/geoserver/test/wms?"
                 }
 
                 var date = document.getElementById('ddlDate').value
@@ -242,7 +264,7 @@
                    mapNFS.removeLayer(wmsNFSLayer)
                 }
 
-                wmsCOGLayer = L.tileLayer.wms("https://geoserver-test.tern.org.au/geoserver/test/wms?", {
+                wmsCOGLayer = L.tileLayer.wms(cogURL, {
                     layers: 'test:fractional_cover_cog',
                     format: 'image/png',
                     transparent: true,
@@ -255,9 +277,15 @@
                     transparent: true,
                     time: date
                 }).addTo(mapNFS);
-
             }
 
+            function sleep(milliseconds) {
+                const date = Date.now();
+                let currentDate = null;
+                do {
+                    currentDate = Date.now();
+                } while (currentDate - date < milliseconds);
+            }
             initMaps()
             renderMaps()
         </script>
