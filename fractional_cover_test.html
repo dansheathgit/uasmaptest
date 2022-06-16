@@ -173,26 +173,10 @@
             </tr>
             <tr>
                 <td class="tableCell" style="font-size:11pt;margin-right:4px;border-right:1px dashed gray;padding:10px">
-                    <span >
-                        <input type="radio" id="COGTest" name="COG" value="COGTTest" onclick="renderMaps()"
-                                checked>
-                        <label style="font-size:11pt" for="COGTest">COG Test</label>
-                    </span>
-                        <span>
-                        <input type="radio" id="COGProd" name="COG" value="COGProd" onclick="renderMaps()"">
-                        <label style="font-size:11pt" for="COGProd">COG Prod</label>
-                    </span>
+                   Cloud Optimised GeoTIFF
                 </td>
                 <td class="tableCell" style="margin-left:4px;padding:10px">
-                    <span >
-                        <input type="radio" id="NFSTest" name="NFS" value="NFSTTest" onclick="renderMaps()"
-                               checked>
-                        <label style="font-size:11pt" for="NFSTest">NFS Test</label>
-                    </span>
-                      <span>
-                        <input type="radio" id="NFSProd" name="NFS" value="NFSProd" onclick="renderMaps()"">
-                        <label style="font-size:11pt" for="NFSProd">NFS Prod</label>
-                      </span>
+                   NFS
                 </td>
             </tr>
             <tr>
@@ -239,24 +223,13 @@
 
             function renderMaps(){
 
-                nfsURL = ""
-                if (document.getElementById("NFSTest").checked){
-                   nfsURL="https://geoserver-test.tern.org.au/geoserver/aus/wms?"
-                }else{
-                   nfsURL="https://geoserver.tern.org.au/geoserver/aus/wms?"
-                }
-
-                cogURL = ""
-                if (document.getElementById("COGTest").checked){
-                    cogURL="https://geoserver-test.tern.org.au/geoserver/test/wms?"
-                }else{
-                    cogURL="https://geoserver.tern.org.au/geoserver/test/wms?"
-                }
+  
+                nfsURL="https://geoserver.tern.org.au/geoserver/aus/wms?"
+                cogURL="https://geoserver.tern.org.au/geoserver/aus/wms?"
 
                 var date = document.getElementById('ddlDate').value
                 //mapCog.removeLayer(wmsCogLayer)
                 if (typeof wmsCOGLayer === 'undefined') {
-                   
                     // color is undefined
                 }
                 else{
@@ -265,7 +238,7 @@
                 }
 
                 wmsCOGLayer = L.tileLayer.wms(cogURL, {
-                    layers: 'test:fractional_cover_cog',
+                    layers: 'aus:fractional_cover_cog',
                     format: 'image/png',
                     transparent: true,
                     time: date
